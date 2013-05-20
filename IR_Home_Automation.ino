@@ -1,8 +1,12 @@
 /*
+Basic IR Home Automation
+By Rohin Gopalakrishnanx
+Available on Public Domain.
+Credits to Shirrif(for his IR library)
 
-
-
+created on May20th 2013
 */
+
 
 
 #include <IRremote.h>
