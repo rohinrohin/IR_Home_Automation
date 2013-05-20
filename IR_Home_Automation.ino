@@ -1,3 +1,7 @@
+
+#include <IRremote.h>
+#define irPin 11
+
 /*
 Basic IR Home Automation
 By Rohin Gopalakrishnanx
@@ -6,11 +10,6 @@ Credits to Shirrif(for his IR library)
 
 created on May20th 2013
 */
-
-
-
-#include <IRremote.h>
-#define irPin 11
 
 IRrecv irrecv(irPin);
 decode_results results;
@@ -21,27 +20,34 @@ int LIGHT_PIN = 0;
 int BUTTON_STATE = 0;
 int BUTTON_PIN = 0;
 
-int R_PIN = 0;
-int G_PIN = 0;
-int B_PIN = 0;
+int R_PIN = 0; // red Pin
+int G_PIN = 0; // green pin
+int B_PIN = 0; // blue pin
 
   
 void setup() {
-   Serial.begin(9600);
-   irrecv.enableIRIn();
+
+   irrecv.enableIRIn(); // enableIR in
+
+  // pinMode declararions 
    pinMode(BUTTON_PIN, INPUT);
    pinMode(LIGHT_PIN, OUTPUT);
    pinMode(R_PIN, OUTPUT);
    pinMode(G_PIN, OUTPUT);
    pinMode(B_PIN, OUTPUT);
-   digitalWrite(BUTTON_PIN, HIGH); //internal pullup resistor
+   
+   //internal pullup resistor
+   digitalWrite(BUTTON_PIN, HIGH); 
+   
+   // show of lights to indicate user
    startup_sequence(); 
+   
 }
  
 void loop() {
   
-  check_button_state();
-  
+  check_button_state(); // check whether user wants light on/off  
+
    if (irrecv.decode(&results)) {
  
       switch (results.value) {
@@ -61,11 +67,11 @@ void loop() {
          }
          
  
-   irrecv.resume();
+   irrecv.resume();  // resume recieving
    }
 }
 
-int light_function() {
+int light_function() { // light funciion to turn off/on tubelight
   if (LIGHT_CURRSTATE == 0){ //off
     digitalWrite(LIGHT_PIN, HIGH); //turn on 
     LIGHT_CURRSTATE = 1;
