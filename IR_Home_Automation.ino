@@ -25,7 +25,7 @@ int R_PIN = 0;
 int G_PIN = 0;
 int B_PIN = 0;
 
-
+  
 void setup() {
    Serial.begin(9600);
    irrecv.enableIRIn();
@@ -34,7 +34,8 @@ void setup() {
    pinMode(R_PIN, OUTPUT);
    pinMode(G_PIN, OUTPUT);
    pinMode(B_PIN, OUTPUT);
-   digitalWrite(BUTTON_PIN, HIGH); //internal pullup resistor 
+   digitalWrite(BUTTON_PIN, HIGH); //internal pullup resistor
+   startup_sequence(); 
 }
  
 void loop() {
@@ -89,5 +90,23 @@ int write_led(int R, int G, int B) { // write's led
   analogWrite(G_PIN, G);
   analogWrite(B_PIN, B);
 }
+
+
+int startup_sequence() {
+  write_led(255, 0, 0); // red
+  delay(300);
+  write_led(0, 255, 0); // green
+  delay(100);
+  write_led(0, 0, 0); // off
+  delay(100);
+  write_led(0, 255, 0); // green
+  delay(100);
+  write_led(0, 0, 0); // off
+  delay(100);
+  write_led(0, 255, 0); //green
+  delay(150);
+  write_led(0, 0, 255);
+  delay(300);
+  }
  
-  
+
